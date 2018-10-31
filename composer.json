@@ -1,5 +1,5 @@
 {
-    "name": "AtServer/Verify",
+    "name": "at_server/verify",
     "description": "Verify",
     "license": "MIT",
     "type": "library",
