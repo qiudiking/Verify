@@ -46,10 +46,8 @@ class BaseBootstrap {
 			if($method && $method != getArrVal('REQUEST_METHOD',$_SERVER)){
 				throw new \Exception('请求方式错误',30331);
 			}
-			$signController = \Yaf\Application::app()->getConfig()->get('sign.controller');
-			$arrController = explode(',',$signController);
 			$sign = strtoupper(getArrVal('sign',$verifyMethodDocInfo));
-			if(in_array($controllerName,$arrController) || ($sign && $sign =='TRUE')){
+			if( isAjaxRequest() && (empty($sign) || $sign === 'TRUE')){
 			    Sign::Sign();
 			}
 			self::$actionDescription = getArrVal( 'description', $verifyMethodDocInfo );
