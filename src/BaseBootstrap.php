@@ -38,10 +38,10 @@ class BaseBootstrap {
 		if ( class_exists( $controllerClass ) ) {
 			$methodsDocInfo = getArrVal( $controllerClass, self::$verifyData );
 			if ( ! $methodsDocInfo ) {
-				$methodsDocInfo                       = \AtServer\ClassDocInfo::getMethodsInfo( $controllerClass );
+				$methodsDocInfo                       = array_change_key_case( \AtServer\ClassDocInfo::getMethodsInfo( $controllerClass ));
 				self::$verifyData[ $controllerClass ] = $methodsDocInfo;
 			}
-			$verifyMethodDocInfo     = getArrVal( $actionName, $methodsDocInfo );
+			$verifyMethodDocInfo     = getArrVal( strtolower($actionName), $methodsDocInfo );
 			$method = strtoupper(getArrVal('method',$verifyMethodDocInfo));
 			if($method && $method != getArrVal('REQUEST_METHOD',$_SERVER)){
 				throw new \Exception('请求方式错误',30331);
@@ -55,7 +55,6 @@ class BaseBootstrap {
 
 
 			$verifyList = getArrVal( 'verify', $verifyMethodDocInfo );
-			print_r($verifyList);
 			if ( is_array( $verifyList ) ) {
 				foreach ( $verifyList as $verifyStrValue ) {
 					self::doVerify( $verifyStrValue );
@@ -82,7 +81,6 @@ class BaseBootstrap {
 		}else{
 			return false;
 		}
-		print_r($verifyRuleList);
 		$rules  = '';
 		$fields = '';
 		if ( isset( $verifyRuleList['rules'] ) ) {

@@ -28,7 +28,6 @@ class EmailVerify implements Verify {
 	public function doVerifyRule( VerifyRule $verifyRule ) {
 		$verifyRule->chkDataType();
 		$pattern = "/^([0-9A-Za-z\\-_\\.]+)@([0-9a-z]+\\.[a-z]{2,3}(\\.[a-z]{2})?)$/i";
-		var_dump( $verifyRule->value );
 		if ( ! preg_match( $pattern, $verifyRule->value ) ) {
 			$verifyRule->error || $verifyRule->error= $verifyRule->getDes(). '格式无效' ;
 			throw new VerifyException( ErrorHandler::VERIFY_EMAIL_INVALID, $verifyRule->error );
