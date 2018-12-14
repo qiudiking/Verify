@@ -46,10 +46,7 @@ class BaseBootstrap {
 			if($method && $method != getArrVal('REQUEST_METHOD',$_SERVER)){
 				throw new \Exception('请求方式错误',30331);
 			}
-			$sign = strtoupper(getArrVal('sign',$verifyMethodDocInfo));
-			if( isAjaxRequest() && (empty($sign) || $sign === 'TRUE')){
-			    Sign::Sign();
-			}
+			
 			self::$actionDescription = getArrVal( 'description', $verifyMethodDocInfo );
 			self::$actionDescription || self::$actionDescription = getArrVal( 'long_description', $verifyMethodDocInfo );
 
